@@ -34,7 +34,6 @@ export default function Home() {
         </Link>
       </MaxWidthWrapper>
 
-      {/* value proposition section */}
       <div>
         <div className='relative isolate'>
           <div
@@ -82,7 +81,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Feature section */}
       <div className='mx-auto mb-32 mt-32 max-w-5xl sm:mt-56'>
         <div className='mb-12 px-6 lg:px-8'>
           <div className='mx-auto max-w-2xl sm:text-center'>
@@ -95,7 +93,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* steps */}
         <ol className='my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0'>
           <li className='md:flex-1'>
             <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
