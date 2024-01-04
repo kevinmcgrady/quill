@@ -1,5 +1,9 @@
 'use client';
 
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   ChevronDown,
   ChevronUp,
@@ -7,26 +11,24 @@ import {
   RotateCw,
   Search,
 } from 'lucide-react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import { useResizeDetector } from 'react-resize-detector';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
-import { useToast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Document, Page, pdfjs } from 'react-pdf';
+import { useResizeDetector } from 'react-resize-detector';
+import Simplebar from 'simplebar-react';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '@/lib/utils';
+
+import PdfFullScreen from '@/components/PdfFullScreen';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Simplebar from 'simplebar-react';
-import PdfFullScreen from '@/components/PdfFullScreen';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import { cn } from '@/lib/utils';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 

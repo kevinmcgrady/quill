@@ -1,13 +1,14 @@
 'use client';
 
-import Dropzone from 'react-dropzone';
 import { Cloud, File, Loader2 } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
-import { useUploadThing } from '@/lib/uploadthing';
-import { useToast } from '@/components/ui/use-toast';
-import { trpc } from '@/app/_trpc/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Dropzone from 'react-dropzone';
+
+import { trpc } from '@/app/_trpc/client';
+import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/components/ui/use-toast';
+import { useUploadThing } from '@/lib/uploadthing';
 
 const UploadDropzone = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
