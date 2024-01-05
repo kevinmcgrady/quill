@@ -5,6 +5,7 @@ import { httpBatchLink } from '@trpc/client';
 import { ReactNode, useState } from 'react';
 
 import { trpc } from '@/app/_trpc/client';
+import { absoluteUrl } from '@/lib/utils';
 
 type ProvidersProps = {
   children: ReactNode;
@@ -16,7 +17,7 @@ const Providers = ({ children }: ProvidersProps) => {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: 'http://localhost:3000/api/trpc',
+          url: absoluteUrl('/api/trpc'),
         }),
       ],
     }),
