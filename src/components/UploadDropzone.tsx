@@ -10,12 +10,18 @@ import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/components/ui/use-toast';
 import { useUploadThing } from '@/lib/uploadthing';
 
-const UploadDropzone = () => {
+type UploadDropzoneProps = {
+  isSubscribed: boolean;
+};
+
+const UploadDropzone = ({ isSubscribed }: UploadDropzoneProps) => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const router = useRouter();
   const { toast } = useToast();
-  const { startUpload } = useUploadThing('pdfUploader');
+  const { startUpload } = useUploadThing(
+    isSubscribed ? 'proPlanUploader' : 'freePlanUploader',
+  );
 
   const { mutate: startPolling } = trpc.getFile.useMutation({
     onSuccess: (file) => {
@@ -89,7 +95,9 @@ const UploadDropzone = () => {
                   <span className='font-semibold'>Click to upload</span> or drag
                   and drop.
                 </p>
-                <p className='text-xs text-zinc-500'>PDF (up to 4MB)</p>
+                <p className='text-xs text-zinc-500'>
+                  PDF (up to {isSubscribed ? '16MB' : '4MB'})
+                </p>
               </div>
 
               {acceptedFiles && acceptedFiles[0] && (

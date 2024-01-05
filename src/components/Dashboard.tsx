@@ -8,10 +8,15 @@ import Skeleton from 'react-loading-skeleton';
 
 import { trpc } from '@/app/_trpc/client';
 import UploadButton from '@/components/UploadButton';
+import { getUserSubscriptionPlan } from '@/lib/stripe';
 
 import { Button } from './ui/button';
 
-const Dashboard = () => {
+type DashboardProps = {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+};
+
+const Dashboard = ({ subscriptionPlan }: DashboardProps) => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
     string | null
   >(null);
@@ -37,7 +42,7 @@ const Dashboard = () => {
     <main className='mx-auto max-w-7xl md:p-10'>
       <div className='mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0'>
         <h1 className='mb-3 font-bold text-5xl text-gray-900'>My Files</h1>
-        <UploadButton />
+        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
       </div>
       {isLoading && <Skeleton height={100} className='my-2' count={3} />}
 
