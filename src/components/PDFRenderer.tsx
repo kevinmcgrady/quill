@@ -36,7 +36,7 @@ type PDFRendererProps = {
   fileURL: string;
 };
 
-const PdfRenderer = ({ fileURL }: PDFRendererProps) => {
+const PDFRenderer = ({ fileURL }: PDFRendererProps) => {
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [scale, setScale] = useState<number>(1);
@@ -194,4 +194,4 @@ const PdfRenderer = ({ fileURL }: PDFRendererProps) => {
   );
 };
 
-export default PdfRenderer;
+export default PDFRenderer;
