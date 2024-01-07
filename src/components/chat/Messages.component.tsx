@@ -4,10 +4,10 @@ import { useContext, useEffect, useRef } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { trpc } from '@/app/_trpc/client';
-import Message from '@/components/chat/Message';
+import Message from '@/components/chat/Message.component';
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 
-import { ChatContext } from './ChatContext';
+import { ChatContext } from '../../context/ChatContext.context';
 
 type MessagesProps = {
   fileId: string;
@@ -17,7 +17,7 @@ const Messages = ({ fileId }: MessagesProps) => {
   const { isLoading: isAiThinking } = useContext(ChatContext);
 
   const { data, isLoading, fetchNextPage } =
-    trpc.getFileMessages.useInfiniteQuery(
+    trpc.message.getFileMessages.useInfiniteQuery(
       {
         fileId,
         limit: INFINITE_QUERY_LIMIT,
@@ -29,6 +29,7 @@ const Messages = ({ fileId }: MessagesProps) => {
     );
 
   const messages = data?.pages.flatMap((page) => page.messages);
+
   const loadingMessage = {
     createdAt: new Date().toISOString(),
     id: 'loading-message',

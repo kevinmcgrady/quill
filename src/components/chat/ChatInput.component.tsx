@@ -1,10 +1,10 @@
 import { Send } from 'lucide-react';
-import { useContext, useRef } from 'react';
+import { KeyboardEvent,useContext, useRef  } from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/Button.component';
+import { Textarea } from '@/components/ui/Textarea.component';
 
-import { ChatContext } from './ChatContext';
+import { ChatContext } from '../../context/ChatContext.context';
 
 type ChatInputProps = {
   isDisabled?: boolean;
@@ -13,7 +13,21 @@ type ChatInputProps = {
 const ChatInput = ({ isDisabled }: ChatInputProps) => {
   const { addMessage, handleInputChange, isLoading, message } =
     useContext(ChatContext);
+
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      addMessage();
+      textAreaRef.current?.focus();
+    }
+  };
+
+  const handleSubmit = () => {
+    addMessage();
+    textAreaRef.current?.focus();
+  };
 
   return (
     <div className='absolute bottom-0 left-0 w-full'>
@@ -29,23 +43,14 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
                 autoFocus
                 onChange={handleInputChange}
                 value={message}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    addMessage();
-                    textAreaRef.current?.focus();
-                  }
-                }}
+                onKeyDown={handleKeyDown}
                 className='resize-none pr-12 text-base py-3 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'
               />
               <Button
                 disabled={isLoading || isDisabled}
                 className='absolute bottom-1.5 right-[8px]'
                 aria-label='send message'
-                onClick={() => {
-                  addMessage();
-                  textAreaRef.current?.focus();
-                }}
+                onClick={handleSubmit}
               >
                 <Send className='h-4 w-4' />
               </Button>

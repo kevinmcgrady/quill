@@ -11,7 +11,7 @@ export default function AuthCallback() {
   const searchParams = useSearchParams();
   const origin = searchParams.get('origin');
 
-  trpc.authCallback.useQuery(undefined, {
+  trpc.auth.authCallback.useQuery(undefined, {
     onSuccess: ({ success }) => {
       if (success) {
         router.push(origin ? `/${origin}` : '/dashboard');

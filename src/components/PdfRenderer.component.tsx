@@ -18,16 +18,16 @@ import { useResizeDetector } from 'react-resize-detector';
 import Simplebar from 'simplebar-react';
 import { z } from 'zod';
 
-import PdfFullScreen from '@/components/PdfFullScreen';
-import { Button } from '@/components/ui/button';
+import PdfFullScreen from '@/components/PdfFullScreen.component';
+import { Button } from '@/components/ui/Button.component';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+} from '@/components/ui/DropdownMenu.component';
+import { Input } from '@/components/ui/Input.component';
+import { useToast } from '@/hooks/use-toast.hook';
 import { cn } from '@/lib/utils';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;

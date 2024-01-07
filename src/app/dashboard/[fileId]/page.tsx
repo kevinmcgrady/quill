@@ -1,9 +1,9 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { notFound, redirect } from 'next/navigation';
 
-import ChatWrapper from '@/components/chat/ChatWrapper';
-import PDFRenderer from '@/components/PDFRenderer';
+import ChatWrapper from '@/components/chat/ChatWrapper.component';
+import PDFRenderer from '@/components/PdfRenderer.component';
 import { db } from '@/db';
+import { getLoddedInUser } from '@/queries/user.query';
 
 type PageProps = {
   params: {
@@ -13,8 +13,7 @@ type PageProps = {
 
 export default async function Page({ params }: PageProps) {
   const { fileId } = params;
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const { user } = await getLoddedInUser();
 
   if (!user || !user.id) redirect(`/auth-callback?origin=dashboard/${fileId}`);
 

@@ -6,10 +6,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 
-import Navbar from '@/components/Navbar';
-import Providers from '@/components/Providers';
-import { Toaster } from '@/components/ui/toaster';
+import Navbar from '@/components/nav/Navbar.component';
+import { Toaster } from '@/components/ui/Toaster.component';
 import { cn, constructMetadata } from '@/lib/utils';
+import Providers from '@/providers/Providers.provider';
 
 const inter = Inter({ subsets: ['latin'] });
 

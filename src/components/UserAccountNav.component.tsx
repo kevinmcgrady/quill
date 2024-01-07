@@ -5,16 +5,16 @@ import Link from 'next/link';
 
 import { getUserSubscriptionPlan } from '@/lib/stripe';
 
-import Icons from './Icons';
-import { Avatar, AvatarFallback } from './ui/avatar';
-import { Button } from './ui/button';
+import Icons from './Icons.component';
+import { Avatar, AvatarFallback } from './ui/Avatar.component';
+import { Button } from './ui/Button.component';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from './ui/DropdownMenu.component';
 
 type UserAccountNavProps = {
   email: string | undefined;

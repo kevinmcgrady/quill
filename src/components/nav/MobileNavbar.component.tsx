@@ -12,7 +12,6 @@ type MobileNavbarProps = {
 const MobileNavbar = ({ isAuth }: MobileNavbarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleOpen = () => setIsOpen((prev) => !prev);
-
   const pathname = usePathname();
 
   useEffect(() => {

@@ -4,18 +4,18 @@ import { ChevronLeft, Loader2, XCircle } from 'lucide-react';
 import Link from 'next/link';
 
 import { trpc } from '@/app/_trpc/client';
-import ChatInput from '@/components/chat/ChatInput';
-import Messages from '@/components/chat/Messages';
+import ChatInput from '@/components/chat/ChatInput.component';
+import Messages from '@/components/chat/Messages.component';
 
-import { buttonVariants } from '../ui/button';
-import { ChatContextProvider } from './ChatContext';
+import { ChatContextProvider } from '../../context/ChatContext.context';
+import { buttonVariants } from '../ui/Button.component';
 
 type ChatWrapperProps = {
   fileId: string;
 };
 
 const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
-  const { data, isLoading } = trpc.getFileUploadStatus.useQuery(
+  const { data, isLoading } = trpc.file.getFileUploadStatus.useQuery(
     {
       fileId,
     },

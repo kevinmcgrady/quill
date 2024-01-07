@@ -6,9 +6,13 @@ import { Document, Page } from 'react-pdf';
 import { useResizeDetector } from 'react-resize-detector';
 import SimpleBar from 'simplebar-react';
 
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/Button.component';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from '@/components/ui/Dialog.component';
+import { useToast } from '@/hooks/use-toast.hook';
 
 type PdfFullScreenProps = {
   fileURL: string;
@@ -20,15 +24,14 @@ const PdfFullScreen = ({ fileURL }: PdfFullScreenProps) => {
   const { width, ref } = useResizeDetector();
   const { toast } = useToast();
 
+  const handleOnOpenChange = (open: boolean) => {
+    if (!open) {
+      setIsOpen(open);
+    }
+  };
+
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={(open) => {
-        if (!open) {
-          setIsOpen(open);
-        }
-      }}
-    >
+    <Dialog open={isOpen} onOpenChange={handleOnOpenChange}>
       <DialogTrigger asChild onClick={() => setIsOpen(true)}>
         <Button aria-label='fullscreen' variant='ghost' className='gap-1.5'>
           <Expand className='h-4 w-4' />

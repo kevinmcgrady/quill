@@ -1,21 +1,21 @@
 'use client';
-
 import { format } from 'date-fns';
 import { Loader2 } from 'lucide-react';
+import React from 'react';
 
 import { trpc } from '@/app/_trpc/client';
 import { getUserSubscriptionPlan } from '@/lib/stripe';
 
-import MaxWidthWrapper from './MaxWidthWrapper';
-import { Button } from './ui/button';
+import { useToast } from '../hooks/use-toast.hook';
+import MaxWidthWrapper from './layout/MaxWidthWrapper.component';
+import { Button } from './ui/Button.component';
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from './ui/card';
-import { useToast } from './ui/use-toast';
+} from './ui/Card.component';
 
 type BillingFormProps = {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
@@ -25,7 +25,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
   const { toast } = useToast();
 
   const { mutate: createStripeSession, isLoading } =
-    trpc.createStripeSession.useMutation({
+    trpc.payment.createStripeSession.useMutation({
       onSuccess: ({ url }) => {
         if (url) window.location.href = url;
         if (!url) {
@@ -38,15 +38,14 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
       },
     });
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    createStripeSession();
+  };
+
   return (
     <MaxWidthWrapper className='max-w-5xl'>
-      <form
-        className='mt-12'
-        onSubmit={(e) => {
-          e.preventDefault();
-          createStripeSession();
-        }}
-      >
+      <form className='mt-12' onSubmit={handleSubmit}>
         <Card>
           <CardHeader>
             <CardTitle>Subscription Plan</CardTitle>

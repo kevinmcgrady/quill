@@ -6,8 +6,8 @@ import { useState } from 'react';
 import Dropzone from 'react-dropzone';
 
 import { trpc } from '@/app/_trpc/client';
-import { Progress } from '@/components/ui/progress';
-import { useToast } from '@/components/ui/use-toast';
+import { Progress } from '@/components/ui/Progress.component';
+import { useToast } from '@/hooks/use-toast.hook';
 import { useUploadThing } from '@/lib/uploadthing';
 
 type UploadDropzoneProps = {
@@ -23,7 +23,7 @@ const UploadDropzone = ({ isSubscribed }: UploadDropzoneProps) => {
     isSubscribed ? 'proPlanUploader' : 'freePlanUploader',
   );
 
-  const { mutate: startPolling } = trpc.getFile.useMutation({
+  const { mutate: startPolling } = trpc.file.getFile.useMutation({
     onSuccess: (file) => {
       router.push(`/dashboard/${file.id}`);
     },

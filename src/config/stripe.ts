@@ -1,7 +1,12 @@
+enum PlanType {
+  FREE = 'Free',
+  PRO = 'Pro',
+}
+
 export const PLANS = {
   free: {
-    name: 'Free',
-    slug: 'free',
+    name: PlanType.FREE,
+    slug: PlanType.FREE.toLocaleLowerCase(),
     quota: 10,
     pagesPerPdf: 5,
     price: {
@@ -13,8 +18,8 @@ export const PLANS = {
     },
   },
   pro: {
-    name: 'Pro',
-    slug: 'pro',
+    name: PlanType.PRO,
+    slug: PlanType.PRO.toLowerCase(),
     quota: 50,
     pagesPerPdf: 20,
     price: {
@@ -35,7 +40,7 @@ export const PRICING_ITEMS = [
     price: PLANS.free.price.amount,
     features: [
       {
-        text: '5 pages per PDF',
+        text: `${PLANS.free.pagesPerPdf} pages per PDF`,
         footnote: 'The maximum amount of pages per PDF-file.',
       },
       {
@@ -63,7 +68,7 @@ export const PRICING_ITEMS = [
     quota: PLANS.pro.quota,
     features: [
       {
-        text: '25 pages per PDF',
+        text: `${PLANS.pro.pagesPerPdf} pages per PDF`,
         footnote: 'The maximum amount of pages per PDF-file.',
       },
       {

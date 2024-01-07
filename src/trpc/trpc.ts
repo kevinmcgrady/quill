@@ -1,13 +1,12 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { initTRPC,TRPCError } from '@trpc/server';
+import { initTRPC, TRPCError } from '@trpc/server';
+
+import { getLoddedInUser } from '@/queries/user.query';
 
 const t = initTRPC.create();
 const middleware = t.middleware;
 
-const isAuth = middleware(async (opts) => {
-  const { getUser } = getKindeServerSession();
-
-  const user = await getUser();
+export const isAuth = middleware(async (opts) => {
+  const { user } = await getLoddedInUser();
 
   if (!user || !user.id) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });

@@ -1,22 +1,21 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react';
 import Link from 'next/link';
 
-import MaxWidthWrapper from '@/components/MaxWidthWrapper';
-import { buttonVariants } from '@/components/ui/button';
+import MaxWidthWrapper from '@/components/layout/MaxWidthWrapper.component';
+import { buttonVariants } from '@/components/ui/Button.component';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import UpgradeButton from '@/components/UpgradeButton';
+} from '@/components/ui/Tooltip.component';
+import UpgradeButton from '@/components/UpgradeButton.component';
 import { PRICING_ITEMS } from '@/config/stripe';
 import { cn } from '@/lib/utils';
+import { getLoddedInUser } from '@/queries/user.query';
 
 const PricingPage = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const { user } = await getLoddedInUser();
 
   return (
     <>

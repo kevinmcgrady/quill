@@ -45,7 +45,6 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL('https://quill-kohl-five.vercel.app'),
-    themeColor: '#FFF',
     ...(noIndex && {
       robots: {
         index: false,

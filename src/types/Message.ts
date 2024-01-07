@@ -5,7 +5,7 @@ import { AppRouter } from '@/trpc';
 
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
-type Messages = RouterOutput['getFileMessages']['messages'];
+type Messages = RouterOutput['message']['getFileMessages']['messages'];
 
 type OmitText = Omit<Messages[number], 'text'>;
 

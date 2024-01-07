@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import React, { createContext, ReactNode, useRef, useState } from 'react';
 
 import { trpc } from '@/app/_trpc/client';
-import { useToast } from '@/components/ui/use-toast';
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
+import { useToast } from '@/hooks/use-toast.hook';
 
 type ChatContextState = {
   addMessage: () => void;
@@ -55,11 +55,11 @@ export const ChatContextProvider = ({
       backupMessage.current = message;
       setMessage('');
 
-      await utils.getFileMessages.cancel();
+      await utils.message.getFileMessages.cancel();
 
-      const previousMessages = utils.getFileMessages.getInfiniteData();
+      const previousMessages = utils.message.getFileMessages.getInfiniteData();
 
-      utils.getFileMessages.setInfiniteData(
+      utils.message.getFileMessages.setInfiniteData(
         { fileId, limit: INFINITE_QUERY_LIMIT },
         (oldData) => {
           if (!oldData) {
@@ -122,7 +122,7 @@ export const ChatContextProvider = ({
 
         accResponse += chunkValue;
 
-        utils.getFileMessages.setInfiniteData(
+        utils.message.getFileMessages.setInfiniteData(
           { fileId, limit: INFINITE_QUERY_LIMIT },
           (old) => {
             if (!old) {
@@ -180,14 +180,14 @@ export const ChatContextProvider = ({
     },
     onError: (_, __, context) => {
       setMessage(backupMessage.current);
-      utils.getFileMessages.setData(
+      utils.message.getFileMessages.setData(
         { fileId },
         { messages: context?.previousMessages ?? [] },
       );
     },
     onSettled: async () => {
       setIsLoading(false);
-      await utils.getFileMessages.invalidate({ fileId });
+      await utils.message.getFileMessages.invalidate({ fileId });
     },
   });
 

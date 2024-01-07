@@ -7,10 +7,10 @@ import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { trpc } from '@/app/_trpc/client';
-import UploadButton from '@/components/UploadButton';
+import UploadButton from '@/components/UploadButton.component';
 import { getUserSubscriptionPlan } from '@/lib/stripe';
 
-import { Button } from './ui/button';
+import { Button } from './ui/Button.component';
 
 type DashboardProps = {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
@@ -23,14 +23,14 @@ const Dashboard = ({ subscriptionPlan }: DashboardProps) => {
 
   const utils = trpc.useContext();
 
-  const { data: files, isLoading } = trpc.getUserFiles.useQuery();
+  const { data: files, isLoading } = trpc.file.getUserFiles.useQuery();
 
-  const { mutate: deleteFile } = trpc.deleteFile.useMutation({
+  const { mutate: deleteFile } = trpc.file.deleteFile.useMutation({
     onMutate: ({ id }) => {
       setCurrentlyDeletingFile(id);
     },
     onSuccess: () => {
-      utils.getUserFiles.invalidate();
+      utils.file.getUserFiles.invalidate();
     },
     onSettled: () => {
       setCurrentlyDeletingFile(null);
@@ -38,6 +38,7 @@ const Dashboard = ({ subscriptionPlan }: DashboardProps) => {
   });
 
   const hasFiles = files && files?.length !== 0;
+
   return (
     <main className='mx-auto max-w-7xl md:p-10'>
       <div className='mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0'>
@@ -83,7 +84,7 @@ const Dashboard = ({ subscriptionPlan }: DashboardProps) => {
 
                   <div className='flex items-center gap-2'>
                     <MessageSquare className='h-4 w-4' />
-                    mocked
+                    {file._count.messages}
                   </div>
 
                   <Button

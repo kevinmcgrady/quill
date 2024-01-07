@@ -1,4 +1,3 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { PineconeStore } from 'langchain/vectorstores/pinecone';
@@ -8,11 +7,11 @@ import { db } from '@/db';
 import { openai } from '@/lib/openai';
 import { pinecone } from '@/lib/pinecone';
 import { SendMessageValidator } from '@/lib/validators/sendMessage.validator';
+import { getLoddedInUser } from '@/queries/user.query';
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const { user } = await getLoddedInUser();
 
   if (!user || !user.id) {
     return new Response('UNAUTHORIZED', { status: 401 });
