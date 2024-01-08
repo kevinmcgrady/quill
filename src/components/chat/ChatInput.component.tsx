@@ -1,5 +1,5 @@
 import { Send } from 'lucide-react';
-import { KeyboardEvent,useContext, useRef  } from 'react';
+import { KeyboardEvent, useContext, useRef } from 'react';
 
 import { Button } from '@/components/ui/Button.component';
 import { Textarea } from '@/components/ui/Textarea.component';
@@ -30,7 +30,7 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
   };
 
   return (
-    <div className='absolute bottom-0 left-0 w-full'>
+    <div className='absolute bottom-0 left-0 w-full bg-white'>
       <div className='mx-2 flex flex-row gap-3 md:mx-4 md:lastr:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl'>
         <div className='relative flex h-full flex-1 items-stretch md:flex-col'>
           <div className='relative flex flex-col w-full flex-grow p-4'>
