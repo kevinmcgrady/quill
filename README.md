@@ -26,4 +26,12 @@ Upload PDF and the ability to ask AI questions on it
 Payment Subscription (the ability to manage subscription and cancel)
 PDF toolbar (rotate, zoom, fullscreen and skip pages)
 
-> `npm run dev` > `npm run build` > `npm run lint` > `npm run lint:fix`
+## Commands
+
+> `npm run dev`
+
+> `npm run build`
+
+> `npm run lint`
+
+> `npm run lint:fix`
